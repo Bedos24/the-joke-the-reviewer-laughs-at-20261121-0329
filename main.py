@@ -23,6 +23,10 @@ JOKE = (
 
 
 def main() -> None:
+    # The gate accepts only 1..280 Unicode code points of non-blank
+    # text; refuse to write anything else rather than be scored 0.
+    if not 1 <= len(JOKE) <= 280 or not JOKE.strip():
+        raise ValueError("entry text outside the gate's limits")
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
     with open(OUTPUT_PATH, "w", encoding="utf-8", newline="") as fh:
         fh.write(JOKE)
